@@ -1,0 +1,97 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import "../globals.css";
+import {
+  Buttons,
+  Labels,
+  LinkPageText,
+  Links,
+  TextErrors,
+} from "../constants/forms/AuthenticationTexts";
+import { toast } from "react-toastify";
+import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
+
+export type LoginData = {
+  email: string;
+  password: string;
+};
+
+const Login = () => {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginData>();
+
+  const onLoginClick = handleSubmit(async (data: LoginData) => {
+    if (data.email && data.password) {
+      toast.success(AuthToastConstants.loginSuccess);
+      router.push("/dashboard");
+    } else {
+      toast.error(AuthToastConstants.invalidCredentials);
+    }
+  });
+
+  return (
+    <div className="container">
+      <form onSubmit={onLoginClick} className="form">
+        <label htmlFor="email">{Labels.emailLabel}</label>
+        <input
+          id="email"
+          type="text"
+          className="input"
+          {...register("email", {
+            required: TextErrors.emailIsRequired,
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: TextErrors.invalidEmailFormat,
+            },
+          })}
+        />
+        {errors.email && (
+          <div className="error-message">{errors.email.message}</div>
+        )}
+
+        <label htmlFor="password">{Labels.passwordLabel}</label>
+        <input
+          id="password"
+          type="password"
+          className="input"
+          {...register("password", {
+            required: TextErrors.passwordIsRequired,
+            minLength: {
+              value: 8,
+              message: TextErrors.passwordLengthError,
+            },
+            pattern: {
+              value:
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              message: TextErrors.passwordTypeError,
+            },
+          })}
+        />
+        {errors.password && (
+          <div className="error-message">{errors.password.message}</div>
+        )}
+
+        <button type="submit" className="button">
+          {Buttons.loginButton}
+        </button>
+        <div>
+          <span>
+            {LinkPageText.RegisterPageText}
+            <Link className="text-blue-600" href="/register">
+              {Links.registerLink}
+            </Link>
+          </span>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
