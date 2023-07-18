@@ -2,8 +2,11 @@
 
 import "./globals.css";
 import type { Metadata } from "next";
+import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export const metadata: Metadata = {
   title: "Blog App",
@@ -18,8 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ToastContainer />
-        {children}
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <ToastContainer />
+            {children}
+          </PersistGate>
+        </Provider>
       </body>
     </html>
   );

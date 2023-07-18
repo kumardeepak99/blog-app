@@ -3,6 +3,13 @@
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { createUser } from "../store/features/userSlice";
+import { useEffect } from "react";
+import { useStore } from "react-redux";
+import { persistStore } from "redux-persist";
+import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
+import { toast } from "react-toastify";
 import "../globals.css";
 import {
   Buttons,
@@ -11,8 +18,6 @@ import {
   Links,
   TextErrors,
 } from "../constants/forms/AuthenticationTexts";
-import { toast } from "react-toastify";
-import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
 
 export type RegisterData = {
   name: string;
@@ -22,15 +27,30 @@ export type RegisterData = {
 
 const Register = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterData>();
 
-  // create user and get user data on user creation succesfully
+  const store = useStore();
+  useEffect(() => {
+    const persistor = persistStore(store);
+    return () => {
+      persistor.pause();
+      persistor.flush();
+    };
+  }, [store]);
+
   const onRegisterClick = handleSubmit((data: RegisterData) => {
     if (data.name && data.email && data.password) {
+      let user = {
+        id: "sdfvb",
+        name: data.name,
+        email: data.email,
+      };
+      dispatch(createUser(user));
       toast.success(AuthToastConstants.registerSuccess);
       router.push("/dashboard");
     } else {

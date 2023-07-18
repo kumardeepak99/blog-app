@@ -1,8 +1,13 @@
 "use client";
-
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { createUser } from "../store/features/userSlice";
+import { useEffect } from "react";
+import { useStore } from "react-redux";
+import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
+import { toast } from "react-toastify";
 import "../globals.css";
 import {
   Buttons,
@@ -11,8 +16,7 @@ import {
   Links,
   TextErrors,
 } from "../constants/forms/AuthenticationTexts";
-import { toast } from "react-toastify";
-import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
+import { persistStore } from "redux-persist";
 
 export type LoginData = {
   email: string;
@@ -21,15 +25,31 @@ export type LoginData = {
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginData>();
 
+  const store = useStore();
+  useEffect(() => {
+    const persistor = persistStore(store);
+    return () => {
+      persistor.pause();
+      persistor.flush();
+    };
+  }, [store]);
+
   const onLoginClick = handleSubmit(async (data: LoginData) => {
     if (data.email && data.password) {
       toast.success(AuthToastConstants.loginSuccess);
+      let user = {
+        id: "sdfvb",
+        name: "Deepak",
+        email: data.email,
+      };
+      dispatch(createUser(user));
       router.push("/dashboard");
     } else {
       toast.error(AuthToastConstants.invalidCredentials);
