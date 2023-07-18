@@ -12,6 +12,8 @@ import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
 import { toast } from "react-toastify";
 import "../globals.css";
 import { Buttons, Labels, LinkPageText, Links, TextErrors } from "../constants/forms/AuthenticationTexts";
+import { Response_Status } from "../apiServices/ApiServiceConstants";
+import AuthService from "../apiServices/AuthService";
 
 export type RegisterData = {
   name: string;
@@ -37,14 +39,14 @@ const Register = () => {
     };
   }, [store]);
 
-  const onRegisterClick = handleSubmit((data: RegisterData) => {
-    if (data.name && data.email && data.password) {
-      let user = {
-        id: "sdfvb",
-        name: data.name,
-        email: data.email,
-      };
-      dispatch(createUser(user));
+  const onRegisterClick = handleSubmit(async (data: RegisterData) => {
+    let req = {
+      name: data.name,
+      email: data.email,
+    };
+    const response = await AuthService.addUser(req);
+    if (response && response.data && response.statusText === Response_Status.Created) {
+      dispatch(createUser(response.data));
       toast.success(AuthToastConstants.registerSuccess);
       router.push("/dashboard");
     } else {

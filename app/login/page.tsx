@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import "../globals.css";
 import { Buttons, Labels, LinkPageText, Links, TextErrors } from "../constants/forms/AuthenticationTexts";
 import { persistStore } from "redux-persist";
+import { Response_Status } from "../apiServices/ApiServiceConstants";
+import AuthService from "../apiServices/AuthService";
 
 export type LoginData = {
   email: string;
@@ -36,14 +38,10 @@ const Login = () => {
   }, [store]);
 
   const onLoginClick = handleSubmit(async (data: LoginData) => {
-    if (data.email && data.password) {
+    const response = await AuthService.getUserByEmailId(data);
+    if (response && response.data && response.status === Response_Status.OK) {
+      dispatch(createUser(response.data));
       toast.success(AuthToastConstants.loginSuccess);
-      let user = {
-        id: "sdfvb",
-        name: "Deepak",
-        email: data.email,
-      };
-      dispatch(createUser(user));
       router.push("/dashboard");
     } else {
       toast.error(AuthToastConstants.invalidCredentials);
