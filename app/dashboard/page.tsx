@@ -16,9 +16,7 @@ export default function DashboardPage() {
   };
   return (
     <div>
-      <p className="flex flex-col items-center m-10">
-        {BlogHomeTextConstants.aboutBlog}
-      </p>
+      <p className="flex flex-col items-center m-10">{BlogHomeTextConstants.aboutBlog}</p>
       <p className="m-10">{user.email}</p>
       <button className="button" onClick={onLogoutClick}>
         Logout

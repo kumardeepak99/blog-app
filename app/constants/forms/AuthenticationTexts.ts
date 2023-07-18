@@ -18,8 +18,7 @@ export const TextErrors = {
   nameIsRequired: "Name is required",
   passwordIsRequired: "Password is required",
   passwordLengthError: "Password should be at least 8 characters long",
-  passwordTypeError:
-    "Password must contain at least 1 number, lowercase, uppercase and special letter",
+  passwordTypeError: "Password must contain at least 1 number, lowercase, uppercase and special letter",
   emailIsRequired: "Email is required",
   invalidEmailFormat: "Email should be in format: deepak@example.com",
 };

@@ -12,11 +12,11 @@ export default function Home() {
         <p className="text-center">
           Please{" "}
           <Link href="/login" className="underline text-green-400">
-            login
+            Login
           </Link>{" "}
           or{" "}
           <Link href="/register" className="underline text-green-400">
-            register
+            Register
           </Link>{" "}
           to access the blog.
         </p>

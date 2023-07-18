@@ -9,13 +9,7 @@ import { useStore } from "react-redux";
 import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
 import { toast } from "react-toastify";
 import "../globals.css";
-import {
-  Buttons,
-  Labels,
-  LinkPageText,
-  Links,
-  TextErrors,
-} from "../constants/forms/AuthenticationTexts";
+import { Buttons, Labels, LinkPageText, Links, TextErrors } from "../constants/forms/AuthenticationTexts";
 import { persistStore } from "redux-persist";
 
 export type LoginData = {
@@ -72,9 +66,7 @@ const Login = () => {
             },
           })}
         />
-        {errors.email && (
-          <div className="error-message">{errors.email.message}</div>
-        )}
+        {errors.email && <div className="error-message">{errors.email.message}</div>}
 
         <label htmlFor="password">{Labels.passwordLabel}</label>
         <input
@@ -88,15 +80,12 @@ const Login = () => {
               message: TextErrors.passwordLengthError,
             },
             pattern: {
-              value:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
               message: TextErrors.passwordTypeError,
             },
           })}
         />
-        {errors.password && (
-          <div className="error-message">{errors.password.message}</div>
-        )}
+        {errors.password && <div className="error-message">{errors.password.message}</div>}
 
         <button type="submit" className="button">
           {Buttons.loginButton}

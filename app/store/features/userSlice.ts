@@ -25,7 +25,9 @@ export const userSlice = createSlice({
       };
     },
     deleteUser: (state) => {
-      return initialUserState;
+      state.id = initialUserState.id;
+      state.name = initialUserState.name;
+      state.email = initialUserState.email;
     },
   },
 });

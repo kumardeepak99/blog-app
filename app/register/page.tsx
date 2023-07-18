@@ -11,13 +11,7 @@ import { persistStore } from "redux-persist";
 import { AuthToastConstants } from "../constants/toast/AuthToastConstants";
 import { toast } from "react-toastify";
 import "../globals.css";
-import {
-  Buttons,
-  Labels,
-  LinkPageText,
-  Links,
-  TextErrors,
-} from "../constants/forms/AuthenticationTexts";
+import { Buttons, Labels, LinkPageText, Links, TextErrors } from "../constants/forms/AuthenticationTexts";
 
 export type RegisterData = {
   name: string;
@@ -70,9 +64,7 @@ const Register = () => {
             required: TextErrors.nameIsRequired,
           })}
         />
-        {errors.name && (
-          <div className="error-message">{errors.name.message}</div>
-        )}
+        {errors.name && <div className="error-message">{errors.name.message}</div>}
 
         <label htmlFor="email">{Labels.emailLabel}</label>
         <input
@@ -87,9 +79,7 @@ const Register = () => {
             },
           })}
         />
-        {errors.email && (
-          <div className="error-message">{errors.email.message}</div>
-        )}
+        {errors.email && <div className="error-message">{errors.email.message}</div>}
 
         <label htmlFor="password">{Labels.passwordLabel}</label>
         <input
@@ -103,15 +93,12 @@ const Register = () => {
               message: TextErrors.passwordLengthError,
             },
             pattern: {
-              value:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
               message: TextErrors.passwordTypeError,
             },
           })}
         />
-        {errors.password && (
-          <div className="error-message">{errors.password.message}</div>
-        )}
+        {errors.password && <div className="error-message">{errors.password.message}</div>}
 
         <button type="submit" className="button">
           {Buttons.registerButton}
