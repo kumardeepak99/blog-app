@@ -4,7 +4,7 @@ import BlogService from "../apiServices/BlogService";
 import { BlogToastConstants } from "../constants/toast/BlogToastConstants";
 import { toast } from "react-toastify";
 
-type BlogContextType = {
+export type BlogContextType = {
   blogs: Blog[];
   isLoading: boolean;
   loadBlogsData: () => void;

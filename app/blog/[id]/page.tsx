@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { BlogContext } from "@/app/provider/BlogContext";
-import Loading from "@/app/loading";
 import { ApiStates, ReadBlogs } from "@/app/constants/texts/BlogHomeTextConstants";
 import DateFormatter from "@/app/components/date";
 
