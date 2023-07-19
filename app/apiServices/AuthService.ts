@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { API_URL } from "./ApiServiceConstants";
+import { APIUrls } from "./ApiServiceConstants";
 
-const BASE_URL = API_URL + "users";
+const BASE_URL = APIUrls.authUrl;
 
 const handleRequest = async (request: Promise<AxiosResponse>): Promise<any> => {
   try {

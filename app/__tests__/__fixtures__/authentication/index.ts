@@ -8,8 +8,8 @@ export const LoginFakeData = {
   },
 
   invalidCredentials: {
-    email: "1Deepak11@yahoo.com",
-    password: "19oO9glzMNWCMolP",
+    email: faker.person.fullName(),
+    password: faker.airline.aircraftType(),
   },
 
   invalidEmail: faker.person.fullName(),

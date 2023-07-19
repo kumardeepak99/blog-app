@@ -7,6 +7,7 @@ export const Labels = {
 export const Buttons = {
   loginButton: "Login",
   registerButton: "Register",
+  logout: "Logout",
 };
 
 export const Links = {

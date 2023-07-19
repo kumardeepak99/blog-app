@@ -1,9 +1,9 @@
-import { API_URL, Response_Status } from "@/app/apiServices/ApiServiceConstants";
+import { APIUrls, Response_Status } from "@/app/apiServices/ApiServiceConstants";
 import AuthService, { addUser } from "@/app/apiServices/AuthService";
 import axios from "axios";
 import { RegisterFakeData, mockUserList } from "../../__fixtures__/authentication";
 
-const URL = API_URL + "users";
+const URL = APIUrls.authUrl;
 
 jest.mock("axios");
 
